@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tarefas</title>
+    <h1>Formulário de tarefas</h1>
+</head>
+<body>
+    <script>
+        const dados={
+        proridade: 'Urgente',
+        descricao: 'Estudar para a prova',
+        local: 'IFC',
+        recursosnecesarios: ['Computador', 'Internet'],
+        datalimite: '2025-12-03 00:00:00',
+        matricula: 9090909090
+        }
+        </script>
+    <div>
+        <label>Prioridade</label>
+        <input id="Prioridade" type="text">
+    </div>  
+    <div>
+        <label>Descrição</label>
+        <input id="Descricao" type="text">
+    </div>
+    <div>
+        <label>Local</label>
+        <input id="Local" type="text">
+    </div>
+    <div>
+        <label>Recursos Necessários</label>
+        <input id="Recursos" type="text">
+    </div>
+    <div>
+        <label>Data Limite</label>
+        <input id="DataLimite" type="datetime-local">
+    </div>
+    <div>
+        <label>Matrícula</label>
+        <input id="Matricula" type="number">
+    </div>
+    <button onclick="salvar()">Salvar</button>
+
+</body>
+</html>
