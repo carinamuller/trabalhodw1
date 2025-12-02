@@ -1,51 +1,132 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tarefas</title>
-    <h1>Formulário de tarefas</h1>
+    <title>Sistema de Tarefas</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <script>
-        const dados={
-        proridade: 'Urgente',
-        descricao: 'Estudar para a prova',
-        local: 'IFC',
-        recursosnecesarios: ['Computador', 'Internet'],
-        datalimite: '2025-12-03 00:00:00',
-        matricula: 9090909090
-        }
-        function salvar(){
-            console.log(dados);
 
-            alert('Tarefa salva com sucesso!');
-        }
-        </script>
-    <div>
-        <label>Prioridade</label>
-        <input id="Prioridade" type="text">
-    </div>  
-    <div>
-        <label>Descrição</label>
-        <input id="Descricao" type="text">
-    </div>
-    <div>
-        <label>Local</label>
-        <input id="Local" type="text">
-    </div>
-    <div>
-        <label>Recursos Necessários</label>
-        <input id="Recursos" type="text">
-    </div>
-    <div>
-        <label>Data Limite</label>
-        <input id="DataLimite" type="datetime-local">
-    </div>
-    <div>
-        <label>Matrícula</label>
-        <input id="Matricula" type="number">
-    </div>
+<h1>Cadastro de Tarefas</h1>
 
-    <button onclick="salvar()">Salvar Tarefa</button>
+<div>
+    <label>Prioridade</label>
+    <select id="prioridade">
+        <option value="">Selecione</option>
+        <option value="Baixa">Baixa</option>
+        <option value="Normal">Normal</option>
+        <option value="Urgente">Urgente</option>
+    </select>
+</div>
+
+<div>
+    <label>Descrição</label>
+    <input id="descricao" type="text">
+</div>
+
+<div>
+    <label>Local</label>
+    <input id="local" type="text">
+</div>
+
+<div>
+    <label>Recursos Necessários</label>
+    <input id="recursos" type="text">
+</div>
+
+<div>
+    <label>Data Limite</label>
+    <input id="dataLimite" type="datetime-local">
+</div>
+
+<div>
+    <label>Matrícula</label>
+    <input id="matricula" type="number">
+</div>
+
+<button onclick="salvarTarefa()">Salvar Tarefa</button>
+
+<hr>
+
+<h1>Lista de Tarefas</h1>
+
+<p id="mensagem">Nenhuma tarefa cadastrada</p>
+
+<ul id="listaTarefas"></ul>
+
+<script>
+
+let tarefas = [];
+
+function salvarTarefa() {
+
+    let p = document.getElementById("prioridade").value;
+    let d = document.getElementById("descricao").value;
+    let l = document.getElementById("local").value;
+    let r = document.getElementById("recursos").value;
+    let dt = document.getElementById("dataLimite").value;
+    let m = document.getElementById("matricula").value;
+
+    if (p === "" || d === "" || l === "" || dt === "" || m === "") {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    let recursoLista = [];
+    recursoLista[0] = r;
+
+    let tarefa = {
+        prioridade: p,
+        descricao: d,
+        local: l,
+        recursosNecessarios: recursoLista,
+        dataLimite: dt,
+        matricula: m
+    };
+
+    tarefas[tarefas.length] = tarefa;
+
+    atualizarLista();
+}
+
+function atualizarLista() {
+
+    let lista = document.getElementById("listaTarefas");
+    let msg = document.getElementById("mensagem");
+
+    while (lista.firstChild) {
+        lista.removeChild(lista.firstChild);
+    }
+
+    // SE NÃO TEM TAREFAS
+    if (tarefas.length === 0) {
+        msg.textContent = "Nenhuma tarefa cadastrada";
+        return;
+    }
+
+    msg.textContent = "";
+
+    let i = 0;
+    while (i < tarefas.length) {
+
+        let li = document.createElement("li");
+
+        let texto = tarefas[i].prioridade + " - " + tarefas[i].descricao;
+
+        if (tarefas[i].prioridade === "Urgente") {
+            texto = texto + " (URGENTE)";
+            li.className = "urgente";
+        }
+
+        li.textContent = texto;
+
+        lista.appendChild(li);
+
+        i = i + 1;
+    }
+}
+
+</script>
 
 </body>
 </html>
